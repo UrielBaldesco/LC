@@ -1,6 +1,6 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        read, write = 0,0
+        write, read = 0,0
         while read < len(chars):
             letter = chars[read]
             count = 0
@@ -15,6 +15,3 @@ class Solution:
                     write += 1
         
         return write
-'''
-["a","a","b","b","c","c","c"]
-'''
