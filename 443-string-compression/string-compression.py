@@ -1,21 +1,16 @@
 class Solution:
     def compress(self, chars: List[str]) -> int:
-        r, i = 0,0
-        while i < len(chars):
-            currChar = chars[i] #first instance of each section
-            print(currChar)
-            currOcc = 0
-            while i < len(chars) and chars[i] == currChar:
-                currOcc += 1
-                i += 1
-                print(currOcc, i)
-            chars[r] = currChar #After counting, the character is written at index r:
-
-            print('r', r)
-            print('chars[r]', chars[r])
-            r += 1
-            if currOcc > 1:
-                for c in str(currOcc):
-                    chars[r] = c
-                    r += 1        
-        return r
+        write, read = 0,0
+        while read < len(chars):
+            letter = chars[read]
+            countOcc = 0
+            while read < len(chars) and chars[read] == letter:
+                countOcc += 1
+                read += 1
+            chars[write] = letter
+            write += 1
+            if countOcc > 1:
+                for c in str(countOcc):
+                    chars[write] = c
+                    write += 1
+        return write
