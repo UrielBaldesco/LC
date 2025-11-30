@@ -5,28 +5,21 @@ class Solution(object):
         :type k: int
         :rtype: List[int]
         """
-        #2d array, each index in the array corresponds to the frequency and each element in the indx is a list. the list inside each index is the number that has that many frequencies 
         
-        #step 1: have a dictionary that has a key that is the number and the value that is the frequency
-        #step 2: have a 2d array of lsits
-        bucket = [[] for _ in range(len(nums)+1)]
-        print(bucket)
+        '''
+        heap where each node is a tuple 
+            the tuple is (the number, the frequency)
         
-        #step 3: populate count
+        step 1: create a frequency map
+        step 2: create a heap list 
+        step 3: populate the heap, restrict the heap to length of k
+        '''
         count = Counter(nums)
-        print(count)
-
-        for key,val in count.items():
-            bucket[val].append(key)
-        print(bucket)
-        res = []
-        #step 4:iterate backwards the bucket array and append the numbers to the result until k is 0
-        for i in range(len(bucket)-1,0,-1):
-            for sublist in bucket[i]:
-                res.append(sublist)
-                if len(res) == k:
-                    return res
-        
-
-        
-            
+        heap = []
+        for key, val in count.items():
+            heapq.heappush(heap,(val,key)) #the frequency should be change the order
+            if len(heap) > k:
+                heapq.heappop(heap)
+        print(heap)
+        return [key for (val, key) in heap]
+ #iterates through each tuple, ignores the first index in the tuple and only care about the second index of the tuple -- aka the actual number, the first index is the frequency which we dont want
